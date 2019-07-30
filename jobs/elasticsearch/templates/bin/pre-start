@@ -4,6 +4,19 @@ export JAVA_HOME=/var/vcap/packages/java
 export PATH=$PATH:/var/vcap/packages/elasticsearch/bin
 mkdir -p /var/vcap/packages/elasticsearch/plugins
 
+export JOB_PATH=/var/vcap/jobs/elasticsearch
+
+# generate certificates
+cat << EOF > $JOB_PATH/config/ca.crt
+<%= p("elasticsearch.transport.ca_crt") %>
+EOF
+
+cat << EOF > $JOB_PATH/config/ca.key
+<%= p("elasticsearch.transport.ca_key") %>
+EOF
+
+$JOB_PATH/packages/elasticsearch/bin/elasticsearch-certutil cert --ca-cert $JOB_PATH/config/ca.crt --ca-key $JOB_PATH/config/ca.key --out $JOB_PATH/config/elastic-certificates.p12 --pass ""
+
 # install plugins
 rm -rf /var/vcap/packages/elasticsearch/plugins/*
 <%
