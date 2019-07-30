@@ -109,6 +109,11 @@ properties:
   elasticsearch.migrate_6_to_7:
     description: "Whether to migrate the Elasticsearch cluster from 6.7 to 7. (true / false). false by default"
     default: false
+  elasticsearch.transport.ca_crt:
+    description: "CA certificate"
+  elasticsearch.transport.ca_key:
+    description: "CA certificate key"
   monit.enable_http_healthcheck:
     description: "Whether to enable http healthchek for monit (true / false). Disabled by default."
     default: false
+
