@@ -1,0 +1,55 @@
+---
+name: elasticsearch-users
+
+templates:
+  bin/run.sh: bin/run
+
+properties:
+  elasticsearch.protocol:
+    description: "Protocl of elasticsearch master to send elasticsearch requests to (http or https)"
+    default: "http"
+  elasticsearch.prefer_bosh_link:
+    description: "Use bosh link to connect elasticsearch in prioriy to elasticsearch.host/port"
+    default: true
+  elasticsearch.host:
+    description: "IP address of elasticsearch master to send elasticsearch requests to"
+    default: "127.0.0.1"
+  elasticsearch.port:
+    description: "Port of elasticsearch master to send elasticsearch requests to"
+    default: "9200"
+  elasticsearch.username:
+    description: "Username of elasticsearch master to send elasticsearch requests to"
+    default: ""
+  elasticsearch.password:
+    description: "Password of elasticsearch master to send elasticsearch requests to"
+    default: ""
+  elasticsearch.users.admin.role:
+    default: "superuser"
+    description: "Role of the admin user."
+  elasticsearch.users.admin.password:
+    default: "changeme"
+    description: "Password of the admin user."
+  elasticsearch.users.read_only_kibana.role:
+    default: "kibana_system"
+    description: "Role of the read_only_kibana user."
+  elasticsearch.users.read_only_kibana.password:
+    default: "changeme"
+    description: "Password of the read_only_kibana user."
+  elasticsearch.users.curator.role:
+    default: "superuser"
+    description: "Role of the curator user."
+  elasticsearch.users.curator.password:
+    default: "changeme"
+    description: "Password of the kibana user."
+  elasticsearch.users.cerebro.role:
+    default: "superuser"
+    description: "Role of the cerebro user."
+  elasticsearch.users.cerebro.password:
+    default: "changeme"
+    description: "Password of the cerebro user."
+  elasticsearch.users.logstash.role:
+    default: "superuser"
+    description: "Role of the logstash user."
+  elasticsearch.users.logstash.password:
+    default: "changeme"
+    description: "Password of the logstash user."
