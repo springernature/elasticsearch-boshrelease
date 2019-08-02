@@ -117,7 +117,7 @@ discovery.seed_hosts: <%= master_hosts.join(',') %>
 <% if p("elasticsearch.migrate_6_to_7") %>
 cluster.initial_master_nodes: <%= master_hosts.join(',') %>
 <% elsif p("elasticsearch.node.allow_master") && index == 0 %>
-cluster.initial_master_nodes: <%= master_hosts[0] %>
+cluster.initial_master_nodes: <%= name %>/<%= index %>
 <% end %>
 <% if_p('elasticsearch.config_options') do |config_options| %>
 <%= config_options.to_yaml.gsub(/---/, '') %>
