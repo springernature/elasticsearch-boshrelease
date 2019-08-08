@@ -11,8 +11,14 @@ set -e # If a command fails, exit immediately
   elasticsearch_url = p("elasticsearch.protocol") + '://' + p("elasticsearch.username") + ':' + p("elasticsearch.password") + '@' + elasticsearch_host + ':' + p("elasticsearch.port")
 %>
 
+<% if p("elasticsearch.curl.authenticate") %>
+USER="-u <%= p("elasticsearch.curl.username") %>:<%= p("elasticsearch.curl.password") %> " 
+<% else %>
+USER="" 
+<% end %>
+
 <% if_p("elasticsearch.users.admin.password") do |password| %>
-    curl -vs -X PUT "<%= elasticsearch_url %>/_security/user/admin" \
+    curl $USER -vs -X PUT "<%= elasticsearch_url %>/_security/user/admin" \
       -H "Content-Type: application/json"  \
       --data-binary '{"password": "<%= p("elasticsearch.users.admin.password") %>",
                       "roles": [ "<%= p("elasticsearch.users.admin.role") %>" ]
@@ -20,15 +26,15 @@ set -e # If a command fails, exit immediately
 <% end %>
 
 <% if_p("elasticsearch.users.read_only_kibana.password") do |password| %>
-    curl -vs -X PUT "<%= elasticsearch_url %>/_security/user/read_only_kibana" \
+    curl $USER -vs -X PUT "<%= elasticsearch_url %>/_security/user/read_only_kibana" \
       -H "Content-Type: application/json"  \
       --data-binary '{"password": "<%= p("elasticsearch.users.read_only_kibana.password") %>",
-                      "roles": [ "kibana_system" ]
+                      "roles": [ "<%= p("elasticsearch.users.read_only_kibana.role") %>" ]
                      }'
 <% end %>
 
 <% if_p("elasticsearch.users.curator.password") do |password| %>
-    curl -vs -X PUT "<%= elasticsearch_url %>/_security/user/curator" \
+    curl $USER -vs -X PUT "<%= elasticsearch_url %>/_security/user/curator" \
       -H "Content-Type: application/json"  \
       --data-binary '{"password": "<%= p("elasticsearch.users.curator.password") %>",
                       "roles": [ "<%= p("elasticsearch.users.curator.role") %>" ]
@@ -36,7 +42,7 @@ set -e # If a command fails, exit immediately
 <% end %>
 
 <% if_p("elasticsearch.users.cerebro.password") do |password| %>
-    curl -vs -X PUT "<%= elasticsearch_url %>/_security/user/cerebro" \
+    curl $USER -vs -X PUT "<%= elasticsearch_url %>/_security/user/cerebro" \
       -H "Content-Type: application/json"  \
       --data-binary '{"password": "<%= p("elasticsearch.users.cerebro.password") %>",
                       "roles": [ "<%= p("elasticsearch.users.cerebro.role") %>" ]
@@ -44,7 +50,7 @@ set -e # If a command fails, exit immediately
 <% end %>
 
 <% if_p("elasticsearch.users.logstash.password") do |password| %>
-    curl -vs -X PUT "<%= elasticsearch_url %>/_security/user/logstash" \
+    curl $USER -vs -X PUT "<%= elasticsearch_url %>/_security/user/logstash" \
       -H "Content-Type: application/json"  \
       --data-binary '{"password": "<%= p("elasticsearch.users.logstash.password") %>",
                       "roles": [ "<%= p("elasticsearch.users.logstash.role") %>" ]

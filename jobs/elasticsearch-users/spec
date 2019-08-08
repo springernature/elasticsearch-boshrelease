@@ -53,3 +53,10 @@ properties:
   elasticsearch.users.logstash.password:
     default: "changeme"
     description: "Password of the logstash user."
+  elasticsearch.curl.authenticate:
+    default: false
+    description: "If the cluster has authentication enabled, curl may need to be authenticated with an user. Set to true if that is the case."
+  elasticsearch.curl.username:
+    description: "Username to pass to the curl command to authenticate against ES."
+  elasticsearch.curl.password:
+    description: "Password of the user used to authenticate the curl request."
