@@ -11,4 +11,10 @@
 # If a command fails, exit immediately
 set -e
 
-curl -k -X PUT "<%= elasticsearch_url %>/_cluster/settings" -H 'Content-Type: application/json' --data-binary '<%=p('elasticsearch.dynamic.properties') %>'
+<% if p("elasticsearch.curl.authenticate") %>
+USER="-u <%= p("elasticsearch.curl.username") %>:<%= p("elasticsearch.curl.password") %> " 
+<% else %>
+USER="" 
+<% end %>
+
+curl $USER -k -X PUT "<%= elasticsearch_url %>/_cluster/settings" -H 'Content-Type: application/json' --data-binary '<%=p('elasticsearch.dynamic.properties') %>'

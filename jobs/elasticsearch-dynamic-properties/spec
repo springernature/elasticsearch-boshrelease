@@ -26,3 +26,10 @@ properties:
   elasticsearch.dynamic.properties:
     description: "This is the body of the API PUT request. It should be a valid JSON file. In case you want to see a valid example, check the readme file."
     default: ""
+  elasticsearch.curl.authenticate:
+    default: false
+    description: "If the cluster has authentication enabled, curl may need to be authenticated with an user. Set to true if that is the case."
+  elasticsearch.curl.username:
+    description: "Username to pass to the curl command to authenticate against ES."
+  elasticsearch.curl.password:
+    description: "Password of the user used to authenticate the curl request."
