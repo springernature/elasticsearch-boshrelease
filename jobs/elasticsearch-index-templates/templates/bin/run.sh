@@ -11,6 +11,12 @@
 # If a command fails, exit immediately
 set -e
 
+<% if p("elasticsearch.curl.authenticate") %>
+USER="-u <%= p("elasticsearch.curl.username") %>:<%= p("elasticsearch.curl.password") %> " 
+<% else %>
+USER="" 
+<% end %>
+
 <% p("elasticsearch.index.template").each do |template| name, body = template.first %>
-	curl -k -X PUT "<%= elasticsearch_url %>/_template/<%= name %>" -H 'Content-Type: application/json' --data-binary '<%= body %>'
+	curl $USER -k -X PUT "<%= elasticsearch_url %>/_template/<%= name %>" -H 'Content-Type: application/json' --data-binary '<%= body %>'
 <% end %>
