@@ -18,3 +18,7 @@ USER=""
 <% end %>
 
 curl $USER -k -X PUT "<%= elasticsearch_url %>/_cluster/settings" -H 'Content-Type: application/json' --data-binary '<%=p('elasticsearch.dynamic.properties') %>'
+
+<% if !p("elasticsearch.index.settings").empty? %>
+curl $USER -k -X PUT "<%= elasticsearch_url %>/_all/_settings" -H 'Content-Type: application/json' --data-binary '<%=p('elasticsearch.index.settings') %>'
+<% end %>
