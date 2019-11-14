@@ -1,0 +1,32 @@
+---
+name: elasticsearch-prepare-maintenance
+
+templates:
+  bin/run.sh: bin/run
+
+properties:
+  elasticsearch.protocol:
+    description: "Protocl of elasticsearch master to send elasticsearch requests to (http or https)"
+    default: "http"
+  elasticsearch.prefer_bosh_link:
+    description: "Use bosh link to connect elasticsearch in prioriy to elasticsearch.host/port"
+    default: true
+  elasticsearch.host:
+    description: "IP address of elasticsearch master to send elasticsearch requests to"
+    default: "127.0.0.1"
+  elasticsearch.port:
+    description: "Port of elasticsearch master to send elasticsearch requests to"
+    default: "9200"
+  elasticsearch.username:
+    description: "Username of elasticsearch master to send elasticsearch requests to"
+    default: ""
+  elasticsearch.password:
+    description: "Password of elasticsearch master to send elasticsearch requests to"
+    default: ""
+  elasticsearch.curl.authenticate:
+    default: false
+    description: "If the cluster has authentication enabled, curl may need to be authenticated with an user. Set to true if that is the case."
+  elasticsearch.curl.username:
+    description: "Username to pass to the curl command to authenticate against ES."
+  elasticsearch.curl.password:
+    description: "Password of the user used to authenticate the curl request."
